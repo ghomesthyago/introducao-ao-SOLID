@@ -1,0 +1,226 @@
+{
+    "openapi":"3.0.0",
+    "info": {
+        "title":"Introdução ao S.O.L.I.D.",
+        "description":"Introdução aos conceitos de S.O.L.I.D.",
+        "version":"1.0.0",
+        "constact": {
+            "email":"ghomes.thyago@gmail.com"
+        }
+    },
+    "paths":{
+        "/users": {
+            "post": {
+                "tags": ["Users"],
+                "summary":"Create a user.",
+                "description": "Create a new user.",
+                "requestBody": {
+                    "content":{
+                        "application/JSON": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type":"string"
+                                    },
+                                    "email": {
+                                        "type":"string"
+                                    }
+                                },
+                                "example": {
+                                    "name":"Tiago Gomes",
+                                    "email":"ghomes.thyago@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description":"Created"
+                    },
+                    "400": {
+                        "description":"User already exists."
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary":"List all users",
+                "description": "List all users (only Admin).",
+                "responses":{
+                    "200": {
+                        "description":"Success",
+                        "content":{
+                            "application/JSON": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "id": {
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "9651a3e5-de26-4336-a4f6-82708431a8e6",
+                                        "admin": false,
+                                        "name": "Tiago Gomes",
+                                        "email": "ghomes.thyago@gmail.com",
+                                        "created_at": "2021-10-17T16:57:50.660Z",
+                                        "updated_at": "2021-10-17T16:57:50.660Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description":"User not found. / User is not Admin.",
+                        "content":{
+                            "application/JSON": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "id": {
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "User not found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags":["Users"],
+                "summary":"List an user.",
+                "description":"List a specific user.",
+                "responses":{
+                    "200":{
+                        "content":{
+                            "application/JSON":{
+                                "schema":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties":{
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type":"string"
+                                            },
+                                            "name": {
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "9651a3e5-de26-4336-a4f6-82708431a8e6",
+                                        "admin": false,
+                                        "name": "Tiago Gomes",
+                                        "email": "ghomes.thyago@gmail.com",
+                                        "created_at": "2021-10-17T16:57:50.660Z",
+                                        "updated_at": "2021-10-17T16:57:50.660Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description":"User not found.",
+                        "content":{
+                            "application/JSON": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "id": {
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "User not found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch": {
+                "tags":["Users"],
+                "summary":"Turn user Admin",
+                "description":"Turn an user like admin",
+                "responses": {
+                    "200":{
+                        "content":{
+                            "application/JSON":{
+                                "schema":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties":{
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type":"string"
+                                            },
+                                            "name": {
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "example": {
+                                        "id": "9651a3e5-de26-4336-a4f6-82708431a8e6",
+                                        "admin": false,
+                                        "name": "Tiago Gomes",
+                                        "email": "ghomes.thyago@gmail.com",
+                                        "created_at": "2021-10-17T16:57:50.660Z",
+                                        "updated_at": "2021-10-17T16:57:50.660Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description":"User not found.",
+                        "content":{
+                            "application/JSON": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "id": {
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "User not found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
